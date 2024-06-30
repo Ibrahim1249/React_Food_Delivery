@@ -1,33 +1,98 @@
-import React, { useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close';
+import React, { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import GoogleIcon from '@mui/icons-material/Google';
 
-function Login({setShowLogin}) {
+import { handleSignUp } from "../Slices/auth";
+import { useDispatch , useSelector } from "react-redux";
+import { signUpForm } from "../Slices/auth"
+import {auth} from "../firebase"
 
-  const [currState,setCurrState] = useState("Sign Up")
+function Login({ setShowLogin }) {
+  const [currState, setCurrState] = useState("Sign Up");
+
+  const dispatch = useDispatch();
+  const {signUp , Login , userName} = useSelector((state)=>{return state.authReducer})
+ 
+  
+  function handleChange(e){
+  
+    const {name , value} = e.target;
+     dispatch(handleSignUp({field:name , value}))
+    
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(signUpForm({ 
+      auth, 
+      email: signUp.email, 
+      password: signUp.password,
+      name:signUp.name
+    }));
+    setShowLogin(false)
+  };
+
+
   return (
     <>
-     <div className="login">
-        <form action="" className="login-container">
+      <div className="login">
+        <form action="" method="post" className="login-container" onSubmit={handleSubmit}>
           <div className="login-title">
-             <h2>{currState}</h2>
-             <CloseIcon onClick={()=>{setShowLogin(false)}} style={{width:"16px", cursor:"pointer" }}/>
+            <h2>{currState}</h2>
+            <CloseIcon
+              onClick={() => {
+                setShowLogin(false);
+              }}
+              style={{ width: "16px", cursor: "pointer" }}
+            />
           </div>
           <div className="login-inputs">
-            {currState === "Sign Up" ? <input type="text" placeholder='Your name' required /> : <></>}
-             <input type="email" placeholder='Your email' required />
-             <input type="password" placeholder='Password' required />
+            {currState === "Sign Up" ? (
+              <input type="text" placeholder="Your name" required name="name"  value={signUp.name} onChange={(e)=>{handleChange(e)}}/>
+            ) : (
+              <></>
+            )}
+            <input type="email" placeholder="Your email" required name="email" value={signUp.email} onChange={(e)=>{handleChange(e)}}/>
+            <input type="password" placeholder="Password" required name="password" value={signUp.password} onChange={(e)=>{handleChange(e)}}/>
           </div>
-          <button>{currState === "Sign Up" ? "Create Account" : "Login"}</button>
+          <button type="submit"> 
+            {currState === "Sign Up" ? "Create Account" : "Login"}
+          </button>
           <div className="login-condition">
-             <input type="checkbox" required/>
-             <p>By Continuing, i agree to the terms of use & privacy policy.</p>
+            <input type="checkbox" required />
+            <p>By Continuing, i agree to the terms of use & privacy policy.</p>
           </div>
-          {currState === "Login" ?<p>Create a new account? <span onClick={()=>{setCurrState("Sign Up")}}>Click here</span></p> 
-          :  <p>Already have an account? <span onClick={()=>{setCurrState("Login")}}>Login here</span></p>}
+          {currState === "Login" ? (
+            <p>
+              Create a new account?{" "}
+              <span
+                onClick={() => {
+                  setCurrState("Sign Up");
+                }}
+              >
+                Click here
+              </span>
+            </p>
+          ) : (
+            <p>
+              Already have an account?{" "}
+              <span
+                onClick={() => {
+                  setCurrState("Login");
+                }}
+              >
+                Login here
+              </span>
+            </p>
+          )}
+
+
+            
+             <button> <GoogleIcon style={{fontSize:"18px"}}/>Sign in with google</button>
         </form>
-     </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;

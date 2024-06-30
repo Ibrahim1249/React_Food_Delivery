@@ -20,30 +20,50 @@ a{
 
 nav{
     display: flex;
-    padding: 2rem 6%;
-    background-color: lightblue;
+    padding: 1rem 10%;
+    /* background-color: #f4e285; */
+    background-color: #fad643;
     align-items: center;
     justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    color: #ae2012;
     
 }
 nav ul li{
     padding: 0px 10px;
     margin: 0px 10px;
+    color: #ae2012;
+}
+nav .logo{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+}
+nav .logo img{
+    width: 80px;
 }
 
 /* login form css  */
-.login-button button{
+.login-button button, .logout button{
     padding: 6px 30px;
     border: 1px solid rgb(155, 152, 152);
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s;
-    background-color: rgb(170, 187, 187);
+    background-color: #f4a259;
+    color: #ae2012;
 }
 
-.login-button button:hover{
+.login-button button:hover , .logout button:hover{
     background-color: rgb(238, 204, 204);
 }
+.logout{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 
 .login{
     position: absolute;
@@ -108,4 +128,19 @@ nav ul li{
     color: tomato;
     font-weight: 500;
     cursor: pointer;
+}
+
+
+.login-container button:last-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #fff;
+    color: #504f4f;
+    transition: 0.3s;
+}
+.login-container button:last-of-type:hover{
+    background-color: rgba(172, 203, 248, 0.534);
+    color: rgb(21, 21, 187);
 }

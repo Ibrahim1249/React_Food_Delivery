@@ -10,10 +10,10 @@ function Home() {
   return (
   
     <>
-     {showLogin ? <Login setShowLogin={setShowLogin}/> : <></>}
+     {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
       <NavBar setShowLogin={setShowLogin}/>
       <Routes >
-
+   
        <Route path='/about' element={<About/>}></Route>
        <Route path='/cart' element={<Cart/>}></Route>
       </Routes>
