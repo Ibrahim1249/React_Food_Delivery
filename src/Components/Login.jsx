@@ -4,14 +4,14 @@ import GoogleIcon from '@mui/icons-material/Google';
 
 import { handleSignUp , handleLogin, handleResetForm } from "../Slices/auth";
 import { useDispatch , useSelector } from "react-redux";
-import { signUpForm , loginForm , SignInWithGoogle} from "../Slices/auth"
+import { signUpForm , loginForm } from "../Slices/auth"
 import {auth } from "../firebase"
 
 function Login({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
 
   const dispatch = useDispatch();
-  const {signUp , login , userName} = useSelector((state)=>{return state.authReducer})
+  const {signUp , login } = useSelector((state)=>{return state.authReducer})
  
   
   function handleChange(e){

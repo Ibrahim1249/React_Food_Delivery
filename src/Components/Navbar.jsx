@@ -31,6 +31,7 @@ function Navbar({setShowLogin}) {
             <Link to="/"><li>Home</li></Link>
             <Link to="/about"><li>About</li></Link>
             <Link to="/cart"><li>Cart</li></Link>
+            <Link to="/aiRecipe"><li>Ai Recipe</li></Link>
          </ul>
          {userName === null ?  <div className="login-button">
             <button onClick={()=>{setShowLogin(true)}}>Login</button>
