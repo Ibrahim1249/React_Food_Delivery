@@ -9,40 +9,74 @@
     font-family: Outfit  ,sans-serif;
 }
 
-ul{
-    list-style: none;
-    display: flex;
-}
 a{
     text-decoration: none;
     color: black;
 }
 
-nav{
+
+.navbar {
+    padding: 20px 0px;
     display: flex;
-    padding: 1rem 10%;
-    /* background-color: #f4e285; */
-    background-color: #fad643;
     align-items: center;
     justify-content: space-between;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    color: #ae2012;
-    
-}
-nav ul li{
-    padding: 0px 10px;
-    margin: 0px 10px;
-    color: #ae2012;
-}
-nav .logo{
+    width: 80%;
+    margin: auto;
+  }
+  .navbar .logo{
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-
-}
-nav .logo img{
-    width: 80px;
-}
+    gap: 10px;
+  }
+  .navbar .logo img {
+    width: 100px;
+  }
+  .navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    color: #49557e;
+    font-style: 18px;
+  }
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  
+  .navbar button {
+    font-size: 16px;
+    background: transparent;
+    color: #49557e;
+    border: 1px solid tomato;
+    padding: 10px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .navbar button:hover {
+    background-color: #fff4f2;
+  }
+  .active2 {
+    padding-bottom: 2px;
+    border-bottom: 2px solid #49557e;
+  }
+  .navbar li {
+    cursor: pointer;
+  }
+  
+  .navbar-search-icon {
+    position: relative;
+  }
+  .navbar-search-icon .dot {
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: tomato;
+    border-radius: 5px;
+    top: -8px;
+    right: -8px;
+  }
 
 /* login form css  */
 .login-button button, .logout button{
@@ -145,6 +179,103 @@ nav .logo img{
     color: rgb(21, 21, 187);
 }
 
+/* Header css */
+.header {
+    height: 34vw;
+    margin: 30px auto;
+    background: url("./assets/header_img.png") no-repeat;
+    background-size: contain;
+    position: relative;
+    width: 80%;
+    margin: auto;
+   
+  }
+
+  .header-contents {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5vw;
+    max-width: 50%;
+    bottom: 10%;
+    left: 6vw;
+    animation: fadeIn 3s;
+  }
+  .header-contents h2 {
+    font-weight: 500;
+    color: white;
+    font-size: max(4.5vw, 22px);
+  }
+  .header-contents p {
+    color: white;
+    font-size: 1vw;
+  }
+  .header-contents button {
+    border: none;
+    color: #747474;
+    font-weight: 500;
+    padding: 1vw 2.3vw;
+    background-color: white;
+    font-size: max(1vw, 13px);
+    border-radius: 50px;
+    cursor: pointer;
+  }
+
+
+  /* menu css */
+  .explore-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+  }
+  .explore-menu h1 {
+    color: #262626;
+    font-weight: 500;
+  }
+  .explore-menu-text {
+    max-width: 60%;
+    color: #808080;
+  }
+  .explore-menu-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    margin: 20px 0px;
+    overflow-x: scroll;
+  }
+  
+  .explore-menu-list::-webkit-scrollbar {
+    display: none;
+  }
+  .explore-menu-list-item img {
+    width: 7.5vw;
+    min-width: 80px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+  .explore-menu-list-item p {
+    margin-top: 10px;
+    color: #747474;
+    font-size: max(1.4vw, 16px);
+    cursor: pointer;
+  }
+  .explore-menu hr {
+    margin: 10px 0px;
+    height: 2px;
+    background-color: #e2e2e2;
+    border: none;
+  }
+  .explore-menu-list-item .active {
+    border: 4px solid tomato;
+    padding: 2px;
+  }
 
 /* footer css */
 .footer{
@@ -231,6 +362,9 @@ nav .logo img{
     cursor: pointer;
     font-size: 15px;
 }
+
+
+/* navbar media query */
 
 /* footer media query */
 
