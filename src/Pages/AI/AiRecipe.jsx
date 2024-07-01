@@ -28,11 +28,13 @@ function AiRecipe() {
           <button type="submit">Search</button>
         </form>
 
-        <div className="output-detail">
-        {recipeData && recipeData.map((data,index)=>{
+        {recipeData.length > 0 ? <div className="output-detail">
+           {recipeData.map((data,index)=>{
              return <Recipe key={index} data={data}/>
-        })}
-        </div>
+           })}
+        </div>:<></>}
+
+ 
       </div>
     </>
   );

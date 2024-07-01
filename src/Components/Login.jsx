@@ -11,7 +11,7 @@ function Login({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
 
   const dispatch = useDispatch();
-  const {signUp , login } = useSelector((state)=>{return state.authReducer})
+  const {signUp , login , error ,userName } = useSelector((state)=>{return state.authReducer})
  
   
   function handleChange(e){
@@ -47,7 +47,8 @@ function Login({ setShowLogin }) {
   //    setShowLogin(false)
   // }
 
-  // console.log(userName)
+   console.log(userName)
+   console.log(error)
   return (
     <>
       <div className="login">

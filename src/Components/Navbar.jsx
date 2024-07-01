@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import logo from "../assets/logo.png"
+
 
 import { useDispatch , useSelector } from "react-redux";
 import {logoutForm} from "../Slices/auth"
@@ -22,25 +22,6 @@ function Navbar({setShowLogin}) {
 
   return (
     <>
-      {/* <nav>
-         <div className="logo">
-           <img src={logo} alt="" />
-            <h4>Foodie</h4>
-         </div>
-         <ul>
-            <Link to="/"><li>Home</li></Link>
-            <Link to="/about"><li>About</li></Link>
-            <Link to="/cart"><li>Cart</li></Link>
-            <Link to="/aiRecipe"><li>Ai Recipe</li></Link>
-         </ul>
-         {userName === null ?  <div className="login-button">
-            <button onClick={()=>{setShowLogin(true)}}>Login</button>
-         </div>: <div className="logout">
-           <p>{userName || "Welcome Sir"}</p>
-           <button onClick={(e)=>{handleClick(e)}}>Logout</button>
-          </div>}
-     
-      </nav> */}
 
       <div className="navbar">
          <div className="logo">
