@@ -2,37 +2,52 @@ import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from '@mui/icons-material/Google';
 
-import { handleSignUp } from "../Slices/auth";
+import { handleSignUp , handleLogin, handleResetForm } from "../Slices/auth";
 import { useDispatch , useSelector } from "react-redux";
-import { signUpForm } from "../Slices/auth"
-import {auth} from "../firebase"
+import { signUpForm , loginForm , SignInWithGoogle} from "../Slices/auth"
+import {auth } from "../firebase"
 
 function Login({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
 
   const dispatch = useDispatch();
-  const {signUp , Login , userName} = useSelector((state)=>{return state.authReducer})
+  const {signUp , login , userName} = useSelector((state)=>{return state.authReducer})
  
   
   function handleChange(e){
-  
     const {name , value} = e.target;
-     dispatch(handleSignUp({field:name , value}))
+    currState === "Sign Up" ? dispatch(handleSignUp({field:name , value})) : dispatch(handleLogin({field:name , value}))
     
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signUpForm({ 
+
+    currState === "Sign Up" ?   
+     dispatch(signUpForm({ 
       auth, 
       email: signUp.email, 
       password: signUp.password,
       name:signUp.name
+    })) 
+ 
+    : dispatch(loginForm({ 
+      auth, 
+      email: login.email, 
+      password: login.password,
     }));
+  
+    dispatch(handleResetForm(currState)) 
     setShowLogin(false)
+
   };
 
+  // const handleGoogleClick =(e)=>{
+  //    dispatch(SignInWithGoogle({auth}))
+  //    setShowLogin(false)
+  // }
 
+  // console.log(userName)
   return (
     <>
       <div className="login">
@@ -52,8 +67,8 @@ function Login({ setShowLogin }) {
             ) : (
               <></>
             )}
-            <input type="email" placeholder="Your email" required name="email" value={signUp.email} onChange={(e)=>{handleChange(e)}}/>
-            <input type="password" placeholder="Password" required name="password" value={signUp.password} onChange={(e)=>{handleChange(e)}}/>
+            <input type="email" placeholder="Your email" required name="email" value={currState === "Sign Up" ? signUp.email : login.email} onChange={(e)=>{handleChange(e)}}/>
+            <input type="password" placeholder="Password" required name="password" value={currState === "Sign Up" ? signUp.password : login.password} onChange={(e)=>{handleChange(e)}}/>
           </div>
           <button type="submit"> 
             {currState === "Sign Up" ? "Create Account" : "Login"}
@@ -88,7 +103,7 @@ function Login({ setShowLogin }) {
 
 
             
-             <button> <GoogleIcon style={{fontSize:"18px"}}/>Sign in with google</button>
+             <button onClick={(e)=>{handleGoogleClick(e)}}> <GoogleIcon style={{fontSize:"18px"}}/>Sign in with google</button>
         </form>
       </div>
     </>

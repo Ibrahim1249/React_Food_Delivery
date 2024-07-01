@@ -1,7 +1,9 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword , sendEmailVerification , updateProfile , signOut} from "firebase/auth";
+import { createUserWithEmailAndPassword , signInWithEmailAndPassword , updateProfile , signOut} from "firebase/auth";
+import { GoogleAuthProvider , signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const signUpForm = createAsyncThunk("signUp",async({auth,email,password , name})=>{
   try{
@@ -21,6 +23,26 @@ export const logoutForm = createAsyncThunk("logoutForm",async({auth})=>{
        return err;
      }
 })
+
+export const loginForm =createAsyncThunk("loginForm",async({auth,email,password})=>{
+   try{
+      const response = await signInWithEmailAndPassword(auth,email,password)
+        return response.user.displayName;
+   }catch(err){
+      return err.message;
+   }
+})
+
+// export const SignInWithGoogle =createAsyncThunk("SignInWithGoogle",async({auth})=>{
+//   try{
+//     const provider = new GoogleAuthProvider();
+//     const result = await signInWithPopup(auth, provider);
+//     return result.user;
+//   }catch(err){
+//      return err.message;
+//   }
+// })
+
 
 const authSlice = createSlice({
     name:"authentication",
@@ -43,6 +65,16 @@ const authSlice = createSlice({
         state.signUp = {...state.signUp , [action.payload.field] : action.payload.value};
     
       },
+      handleLogin : (state,action)=>{
+         state.login = {...state.login , [action.payload.field] : action.payload.value};
+      },
+      handleResetForm : (state,action)=>{
+        if(action.payload === "Sign Up"){
+           state.signUp = {name : "" , email:"" , password:""}
+        }else{
+          state.login = { email:"" , password:""}
+        }
+      }
  
     },
     extraReducers:(builder)=>{
@@ -58,10 +90,16 @@ const authSlice = createSlice({
            state.userName = action.payload
         }).addCase(logoutForm.rejected,(state,action)=>{
            state.error = action.payload
-        })
+        }).addCase(loginForm.pending, (state,action)=>{
+          state.loading = "loading"
+      }).addCase(loginForm.fulfilled , (state,action)=>{
+         state.userName = action.payload
+      }).addCase(loginForm.rejected,(state,action)=>{
+         state.error = action.payload
+      })
     }
 })
 
 export const authReducer = authSlice.reducer;
 
-export const {handleSignUp , handleLogout} = authSlice.actions;
+export const {handleSignUp , handleLogin , handleResetForm} = authSlice.actions;

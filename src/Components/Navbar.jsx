@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import logo from "../assets/logo.png"
 
 import { useDispatch , useSelector } from "react-redux";
-import { handleLogout , logoutForm} from "../Slices/auth"
+import {logoutForm} from "../Slices/auth"
 import {auth} from "../firebase"
 
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ function Navbar({setShowLogin}) {
          {userName === null ?  <div className="login-button">
             <button onClick={()=>{setShowLogin(true)}}>Login</button>
          </div>: <div className="logout">
-           <p>{userName}</p>
+           <p>{userName || "Welcome Sir"}</p>
            <button onClick={(e)=>{handleClick(e)}}>Logout</button>
           </div>}
          {/* <div className="login-button">
