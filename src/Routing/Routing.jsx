@@ -8,12 +8,14 @@ import NavBar from "../Components/Navbar";
 import Footer from "../Components/Footer"
 import Login from "../Components/Login"
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 function Routing() {
     const [showLogin,setShowLogin] = useState(false)
   return (
     <>
       <BrowserRouter>
+      <Toaster position="top-center" reverseOrder={false}/>
       {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
         <NavBar setShowLogin={setShowLogin}/>
         <Routes>

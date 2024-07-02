@@ -7,20 +7,30 @@ import {auth} from "../firebase"
 
 import { useNavigate } from "react-router-dom";
 import {assets} from "../assets/assets"
+import toast from "react-hot-toast";
 
 
 
 function Navbar({setShowLogin}) {
   const navigate = useNavigate()
-  const {userName} = useSelector((state)=>{return state.authReducer})
+  const {user ,  userName , error} = useSelector((state)=>state.authReducer)
+
   const dispatch = useDispatch();
  
-  function handleClick(e){
+  function handleLogout(){
      dispatch(logoutForm({auth}))
     navigate('/')
   }
 
+  if (error) {
+   toast.error(error)
+   return;
+ }
+
+
+
   return (
+   
     <>
 
       <div className="navbar">
@@ -40,12 +50,17 @@ function Navbar({setShowLogin}) {
                <img src={assets.basket_icon} alt="" />
                <div className="dot"></div>
             </div>
-            {userName === null ?  <div className="login-button">
-            <button onClick={()=>{setShowLogin(true)}}>Login</button>
-         </div>: <div className="logout">
-           <p>{userName || "Welcome Sir"}</p>
-           <button onClick={(e)=>{handleClick(e)}}>Logout</button>
-          </div>}
+           
+           {userName === undefined ?
+               <div className="login-button"> 
+                 <button onClick={()=>{setShowLogin(true)}}>Login</button>
+              </div>
+             :
+               <div className="logout">
+                <p>{userName || user?.email || "Welcome"}</p>
+                <button onClick={handleLogout}>Logout</button>
+               </div>
+             }
          </div>
       </div>
     </>
@@ -53,3 +68,4 @@ function Navbar({setShowLogin}) {
 }
 
 export default Navbar
+
