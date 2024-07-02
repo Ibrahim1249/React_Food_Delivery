@@ -1,7 +1,6 @@
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function Recipe({data}) {
@@ -30,6 +29,3 @@ function Recipe({data}) {
 
 export default Recipe
 
-// <h3><span>Title :</span>{data.title}</h3>
-// <p><span>ingredients :</span> {data.ingredients}</p>
-// <p><span>instructions :</span>{data.instructions}</p>
