@@ -12,7 +12,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-function Cart() {
+function Cart({setShowLogin}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItem } = useSelector((state) => {
@@ -20,6 +20,7 @@ function Cart() {
   });
   const [allAmount, setAllAmount] = useState(0);
   const [promoCode, setPromoCode] = useState("");
+  const {userName} = useSelector((state)=>{return state.authReducer})
   function calculateTotalAmount() {
     let total = 0;
     for (const item in cartItem) {
@@ -34,7 +35,8 @@ function Cart() {
     calculateTotalAmount();
   }, [cartItem]);
 
-  console.log(cartItem);
+  
+
   return (
     <>
       {allAmount > 0 ? (
@@ -99,7 +101,11 @@ function Cart() {
                   <b>${(allAmount + 2).toFixed(2)}</b>
                 </div>
               </div>
-              <button onClick={() => navigate("/")}>PROCEED TO CHECKOUT</button>
+              {userName === undefined ? 
+                <button onClick={()=>setShowLogin(true)}>PLEASE LOGIN </button>
+                :
+                <button onClick={() => navigate("/checkout")}>PROCEED TO CHECKOUT</button>
+                }
             </div>
 
             <div className="cart-promoCode">

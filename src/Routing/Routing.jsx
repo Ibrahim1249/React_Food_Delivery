@@ -9,6 +9,7 @@ import Footer from "../Components/Footer"
 import Login from "../Components/Login"
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
+import CheckOut from "../Pages/CheckOut/CheckOut";
 
 function Routing() {
     const [showLogin,setShowLogin] = useState(false)
@@ -21,8 +22,9 @@ function Routing() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
-          <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/cart" element={<Cart setShowLogin={setShowLogin}/>}></Route>
           <Route path="/aiRecipe" element={<AiRecipe />}></Route>
+          <Route path="/checkout" element={<CheckOut />}></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>

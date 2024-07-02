@@ -41,7 +41,7 @@ a{
   .navbar-right {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 15px;
   }
   
   .navbar button {
@@ -63,6 +63,7 @@ a{
   }
   .navbar li {
     cursor: pointer;
+    position: relative;
   }
   
   .navbar-search-icon {
@@ -76,6 +77,11 @@ a{
     border-radius: 5px;
     top: -8px;
     right: -8px;
+  }
+  .cart-count{
+    position: absolute;
+    bottom: 5px;
+    right: -10px;
   }
 
 /* login form css  */
@@ -178,6 +184,39 @@ a{
     background-color: rgba(172, 203, 248, 0.534);
     color: rgb(21, 21, 187);
 }
+
+/* search component css */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  padding: 5px 10px;
+  overflow: hidden;
+}
+
+.search-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  margin-left: 10px;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+}
+
+
 
 /* Header css */
 .header {

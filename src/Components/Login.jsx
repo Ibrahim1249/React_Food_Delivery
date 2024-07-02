@@ -47,8 +47,6 @@ function Login({ setShowLogin }) {
   //    setShowLogin(false)
   // }
 
-   console.log(userName)
-   console.log(error)
   return (
     <>
       <div className="login">

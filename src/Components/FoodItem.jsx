@@ -9,6 +9,7 @@ function FoodItem({ food }) {
   });
 
 
+
   return (
     <>
       <div className="food-item">

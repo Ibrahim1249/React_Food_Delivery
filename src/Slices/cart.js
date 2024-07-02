@@ -5,7 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
     name:"cart",
     initialState:{
-      cartItem:{}
+      cartItem:{},
+      cartCount:0
     },
     reducers:{
       handleAddCart:(state,action)=>{
@@ -14,10 +15,12 @@ const cartSlice = createSlice({
          }else{
             state.cartItem[action.payload]++;
          }
+         state.cartCount += 1
       },
       handleRemoveCart:(state,action)=>{
         if(state.cartItem[action.payload] > 0){
           state.cartItem[action.payload]--;
+          state.cartCount -=1;
         }else{
          delete state.cartItem[action.payload]
         }
