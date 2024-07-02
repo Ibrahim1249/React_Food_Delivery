@@ -2,6 +2,7 @@ import {
   handleAddCart,
   handleRemoveCart,
   handleRemoveItemFromCart,
+  handlePromoCode
 } from "../../Slices/cart";
 import { useDispatch, useSelector } from "react-redux";
 import { food_list } from "../../assets/assets";
@@ -10,17 +11,21 @@ import { Link, useNavigate } from "react-router-dom";
 import cartImg from "../../assets/cartImg.avif"
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import toast from "react-hot-toast";
 
 
-function Cart({setShowLogin, setAllAmount , allAmount}) {
+function Cart({setShowLogin, setAllAmount , allAmount }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItem } = useSelector((state) => {
     return state.cartReducer;
   });
 
-  const [promoCode, setPromoCode] = useState("");
-  const {userName} = useSelector((state)=>{return state.authReducer})
+  const [promoText, setPromoText] = useState("");
+  const {userName , user} = useSelector((state)=>{return state.authReducer})
+  const {promoCode} = useSelector((state)=>{return state.cartReducer})
+
+
   function calculateTotalAmount() {
     let total = 0;
     for (const item in cartItem) {
@@ -31,10 +36,37 @@ function Cart({setShowLogin, setAllAmount , allAmount}) {
     }
     setAllAmount(total);
   }
+
+  function checkPromoCode(e){
+    e.preventDefault();
+    let amount = 0;
+    if(userName === undefined){
+       toast.error("please login to access promo code!");
+       return;
+    }else if(user.uid && promoCode){
+         if(promoText === "WELCOME100"){
+            amount = allAmount - 10;
+            setAllAmount(amount);
+            dispatch(handlePromoCode(false))
+            setPromoText("");
+            toast.success("Congratulations you successfully applied PromoCode!!")
+         }else{
+            toast.error("Invalid Promo write properly!!")
+            return;
+         }
+    }else{
+       toast.error("Promo Code is already used!!")
+       return;
+    }
+}
+
   useEffect(() => {
     calculateTotalAmount();
   }, [cartItem]);
+  
 
+
+  
   
 
   return (
@@ -112,17 +144,17 @@ function Cart({setShowLogin, setAllAmount , allAmount}) {
               <div>
                 <p>If you have a promo code, Enter it here</p>
                 <div className="promoCodeBox">
-                  <span className="promoCodeText1">Get 50% OFF up to ₹149</span>
-                  <span className="promoCodeText2">WELCOME50</span>
+                  <span className="promoCodeText1">Get OFF up to $10</span>
+                  <span className="promoCodeText2">WELCOME100</span>
                 </div>
                 <div className="cart-promoCode-input">
                   <input
                     type="text"
                     placeholder="promo code"
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
+                    value={promoText}
+                    onChange={(e) => setPromoText(e.target.value)}
                   />
-                  <button>Submit</button>
+                  <button onClick={(e)=>{checkPromoCode(e)}}>Submit</button>
                 </div>
               </div>
             </div>

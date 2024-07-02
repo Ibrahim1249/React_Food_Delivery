@@ -36,8 +36,10 @@ const recipeSlice = createSlice({
          builder.addCase(fetchRecipe.pending,(state,action)=>{
              state.loading = true
          }).addCase(fetchRecipe.fulfilled,(state,action)=>{
+            state.loading = false;
             state.recipeData = action.payload
          }).addCase(fetchRecipe.rejected,(state,action)=>{
+            state.loading = false;
              state.error = action.payload
          })
     }

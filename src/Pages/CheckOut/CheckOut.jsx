@@ -40,7 +40,7 @@ function CheckOut({allAmount}) {
           <hr />
           <div className="cart-total-details">
             <p>Total</p>
-            <p>${allAmount + 2}</p>
+            <p><b>${allAmount + 2}</b></p>
           </div>
         </div>
 

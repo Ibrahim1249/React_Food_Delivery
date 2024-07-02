@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import toast from "react-hot-toast";
 import Search from "./Search";
+import { useEffect } from "react";
 
 
-function Navbar({ setShowLogin }) {
+function Navbar({ setShowLogin , cartCount , setCartCount}) {
 
   const navigate = useNavigate();
   const { user, userName, error  } = useSelector((state) => state.authReducer);
-  const { cartCount  } = useSelector((state) => state.cartReducer);
-
+  const {cartItem} = useSelector((state)=>{return state.cartReducer})
   const dispatch = useDispatch();
 
   function handleLogout() {
@@ -25,6 +25,10 @@ function Navbar({ setShowLogin }) {
     toast.error(error);
     return;
   }
+
+  useEffect(()=>{
+      setCartCount(Object.keys(cartItem).length)
+  },[cartItem])
 
   return (
     <>

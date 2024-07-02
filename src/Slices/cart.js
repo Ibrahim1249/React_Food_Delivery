@@ -4,11 +4,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 
+
 const cartSlice = createSlice({
     name:"cart",
     initialState:{
       cartItem:{},
-      cartCount:0,
+      promoCode:true
     },
     reducers:{
       handleAddCart:(state,action)=>{
@@ -17,20 +18,20 @@ const cartSlice = createSlice({
          }else{
             state.cartItem[action.payload]++;
          }
-         state.cartCount += 1
       },
       handleRemoveCart:(state,action)=>{
         if(state.cartItem[action.payload] > 0){
           state.cartItem[action.payload]--;
-          state.cartCount -=1;
         }else{
          delete state.cartItem[action.payload]
         }
     },
     handleRemoveItemFromCart:(state,action)=>{
-       state.cartCount = state.cartCount - state.cartItem[action.payload] 
        delete state.cartItem[action.payload]
     },
+     handlePromoCode:(state,action)=>{
+        state.promoCode = action.payload;
+     }
 
     }
 
@@ -38,4 +39,4 @@ const cartSlice = createSlice({
 
 export const cartReducer = cartSlice.reducer;
 
-export const {handleAddCart , handleRemoveCart ,handleRemoveItemFromCart} = cartSlice.actions;
+export const {handleAddCart , handleRemoveCart ,handleRemoveItemFromCart , handlePromoCode} = cartSlice.actions;

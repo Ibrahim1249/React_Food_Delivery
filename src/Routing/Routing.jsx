@@ -14,16 +14,17 @@ import CheckOut from "../Pages/CheckOut/CheckOut";
 function Routing() {
     const [showLogin,setShowLogin] = useState(false);
     const [allAmount, setAllAmount] = useState(0);
+    const [cartCount , setCartCount] = useState(0);
   return (
     <>
       <BrowserRouter>
       <Toaster position="top-center" reverseOrder={false}/>
       {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
-        <NavBar setShowLogin={setShowLogin}/>
+        <NavBar setShowLogin={setShowLogin} cartCount={cartCount} setCartCount={setCartCount}/>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
-          <Route path="/cart" element={<Cart setShowLogin={setShowLogin} allAmount={allAmount} setAllAmount={setAllAmount}/>}></Route>
+          <Route path="/cart" element={<Cart setShowLogin={setShowLogin} allAmount={allAmount} setAllAmount={setAllAmount} /> }></Route>
           <Route path="/aiRecipe" element={<AiRecipe />}></Route>
           <Route path="/checkout" element={<CheckOut allAmount={allAmount}/>}></Route>
         </Routes>
