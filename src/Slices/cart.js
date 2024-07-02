@@ -2,11 +2,13 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
 const cartSlice = createSlice({
     name:"cart",
     initialState:{
       cartItem:{},
-      cartCount:0
+      cartCount:0,
     },
     reducers:{
       handleAddCart:(state,action)=>{
@@ -26,8 +28,10 @@ const cartSlice = createSlice({
         }
     },
     handleRemoveItemFromCart:(state,action)=>{
+       state.cartCount = state.cartCount - state.cartItem[action.payload] 
        delete state.cartItem[action.payload]
-    }
+    },
+
     }
 
 })

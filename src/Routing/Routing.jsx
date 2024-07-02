@@ -12,7 +12,8 @@ import { Toaster } from "react-hot-toast";
 import CheckOut from "../Pages/CheckOut/CheckOut";
 
 function Routing() {
-    const [showLogin,setShowLogin] = useState(false)
+    const [showLogin,setShowLogin] = useState(false);
+    const [allAmount, setAllAmount] = useState(0);
   return (
     <>
       <BrowserRouter>
@@ -22,9 +23,9 @@ function Routing() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
-          <Route path="/cart" element={<Cart setShowLogin={setShowLogin}/>}></Route>
+          <Route path="/cart" element={<Cart setShowLogin={setShowLogin} allAmount={allAmount} setAllAmount={setAllAmount}/>}></Route>
           <Route path="/aiRecipe" element={<AiRecipe />}></Route>
-          <Route path="/checkout" element={<CheckOut />}></Route>
+          <Route path="/checkout" element={<CheckOut allAmount={allAmount}/>}></Route>
         </Routes>
         <Footer/>
       </BrowserRouter>

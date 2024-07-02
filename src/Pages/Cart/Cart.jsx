@@ -12,13 +12,13 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-function Cart({setShowLogin}) {
+function Cart({setShowLogin, setAllAmount , allAmount}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItem } = useSelector((state) => {
     return state.cartReducer;
   });
-  const [allAmount, setAllAmount] = useState(0);
+
   const [promoCode, setPromoCode] = useState("");
   const {userName} = useSelector((state)=>{return state.authReducer})
   function calculateTotalAmount() {
