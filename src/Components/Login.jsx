@@ -45,48 +45,6 @@ function Login({ setShowLogin }) {
   };
 
 
-  // useEffect(() => {
-  //   console.log("useEffect is running");
-
-  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-  //     console.log("Auth state changed", currentUser);
-
-  //     if (currentUser) {
-  //       // User is signed in
-  //       const writeInFireStore = async () => {
-  //         try {
-  //           const userDocRef = doc(db, 'Users', currentUser.uid);
-  //           await setDoc(userDocRef, {
-  //             userId: currentUser.uid,
-  //             isPromo: true
-  //           });
-  //           console.log("Document written with ID: ", currentUser.uid);
-  //         } catch (error) {
-  //           console.error("Error adding document: ", error);
-  //         }
-  //       };
-        
-  //       writeInFireStore();
-  //     } else {
-  //       // User is signed out
-  //       console.log("User is signed out. No data saved.");
-  //     }
-  //   });
-  
-  //   // Cleanup subscription on unmount
-  //   return () => unsubscribe();
-  // }, []);
-
-  // const handleGoogleClick =(e)=>{
-  //    dispatch(SignInWithGoogle({auth}))
-  //    setShowLogin(false)
-  // }
-
-
-
-
-
-
   return (
     <>
       <div className="login">

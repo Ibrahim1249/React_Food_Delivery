@@ -1,16 +1,22 @@
 
 import React from 'react'
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import loadRazorPayScript from '../../Components/razorpay.js';
 import useRazorpay from "react-razorpay";
 import logo from "../../assets/logo.png"
+import { handleChangeData , handlePaymentDetails , clearStateCheckOutDetails} from '../../Slices/checkout.js';
+import { clearCart } from '../../Slices/cart.js';
 
 function CheckOut({allAmount}) {
   const [RazorPay] = useRazorpay()
-  const {userName} = useSelector((state)=>{return state.authReducer})
+  const {userName , user} = useSelector((state)=>{return state.authReducer})
+  const {checkOutDetails} = useSelector((state)=>{return state.checkOutReducer})
+
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  
 
   const handlePayment = async(allAmount)=>{
     if(userName === undefined){
@@ -19,7 +25,7 @@ function CheckOut({allAmount}) {
      return;
   }
   const response = await loadRazorPayScript("https://checkout.razorpay.com/v1/checkout.js");
-  if (!response) {
+   if (!response) {
      toast.error("RazorPay SDK failed to load. Are you online?");
      return;
    }
@@ -27,25 +33,33 @@ function CheckOut({allAmount}) {
    const options = {
      key: import.meta.env.VITE_RAZORPAY_API_KEY, 
      amount: (allAmount + 2)* 100, 
-     currency: "USD",
+     currency: "INR",
      name: "Foodie.in",
      description: "Test Transaction",
      image: {logo},
      handler: (response) => {
-       console.log(response); // {razorpay_payment_id:"pay_ONOmIIDgEshfBM"}
-       
+        if(response){
+          toast.success("Payment is done successfully !!!")
+          dispatch(clearCart({}))
+          dispatch(handlePaymentDetails({paymentId : response.razorpay_payment_id , amount : allAmount + 2}))
+          dispatch(clearStateCheckOutDetails({}))
+          navigate("/")
+          return;
+        }
      },
      prefill: {
-       name: "Amitabh Bachchan",
-       email: "email@example.com",
-       contact: 123456789,
+       name:  checkOutDetails.firstName + " " + checkOutDetails.lastName,
+       email:user.email,
+       contact: checkOutDetails.number
      },
      notes: {
-       address: "Delhi",
+       address: checkOutDetails.street + "," +checkOutDetails.city,
      },
      theme: {
-       color: "#F37254",
+       color: "#fad643",
      },
+
+    
    };
 
    const paymentObject = new  RazorPay(options)
@@ -53,13 +67,16 @@ function CheckOut({allAmount}) {
 
 }
 
+
 function handleSubmit(e){
   e.preventDefault();
   handlePayment(allAmount)
 }
 
-  
-  
+function handleChange(e){
+   const {name , value} = e.target;
+    dispatch(handleChangeData({field:name , value}))
+}
 
   return (
     <>
@@ -67,20 +84,20 @@ function handleSubmit(e){
     <div className="place-order-left">
       <p className="title">Delivery Information</p>
       <div className="multi-fields">
-        <input type="text" placeholder="First name" required />
-        <input type="text" placeholder="Last name" required />
+        <input type="text" placeholder="First name" name='firstName' required value={checkOutDetails.firstName} onChange={(e)=>{handleChange(e)}}/>
+        <input type="text" placeholder="Last name" name='lastName' required value={checkOutDetails.lastName} onChange={(e)=>{handleChange(e)}}/>
       </div>
  
-      <input type="text" placeholder="Street" required />
+      <input type="text" placeholder="Street" name='street' required value={checkOutDetails.street} onChange={(e)=>{handleChange(e)}}/>
       <div className="multi-fields">
-        <input type="text" placeholder="City" required />
-        <input type="text" placeholder="State" required />
+        <input type="text" placeholder="City" name='city' required value={checkOutDetails.city} onChange={(e)=>{handleChange(e)}}/>
+        <input type="text" placeholder="State" name='state' required value={checkOutDetails.state} onChange={(e)=>{handleChange(e)}}/>
       </div>
       <div className="multi-fields">
-        <input type="text" placeholder="Zip code" required />
-        <input type="text" placeholder="Country" required />
+        <input type="text" placeholder="Zip code" name='zipCode' required value={checkOutDetails.zipCode} onChange={(e)=>{handleChange(e)}}/>
+        <input type="text" placeholder="Country" name='country' required value={checkOutDetails.country} onChange={(e)=>{handleChange(e)}}/>
       </div>
-      <input type="text" placeholder="Phone" required />
+      <input type="text" placeholder="Phone" name='number' required value={checkOutDetails.number} onChange={(e)=>{handleChange(e)}}/>
     </div>
     <div className="place-order-right">
       <div className="cart-total">

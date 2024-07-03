@@ -13,9 +13,9 @@ import cartImg from "../../assets/cartImg.avif"
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import toast from "react-hot-toast";
-import { getDoc, doc , updateDoc , setDoc, addDoc, collection, where, getDocs} from 'firebase/firestore';
+import { getDoc, doc , updateDoc } from 'firebase/firestore';
 import {auth , db } from "../../firebase"
-import { onAuthStateChanged } from 'firebase/auth';
+
 import {fetchCartData , updateCartInFireStore} from "../../Slices/cart"
 
 function Cart({setShowLogin, setAllAmount , allAmount }) {
