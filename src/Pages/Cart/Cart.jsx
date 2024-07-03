@@ -2,6 +2,7 @@ import {
   handleAddCart,
   handleRemoveCart,
   handleRemoveItemFromCart,
+
   
 } from "../../Slices/cart";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,21 +13,31 @@ import cartImg from "../../assets/cartImg.avif"
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import toast from "react-hot-toast";
-import { getDoc, doc , updateDoc , setDoc} from 'firebase/firestore';
+import { getDoc, doc , updateDoc , setDoc, addDoc, collection, where, getDocs} from 'firebase/firestore';
 import {auth , db } from "../../firebase"
 import { onAuthStateChanged } from 'firebase/auth';
+import {fetchCartData , updateCartInFireStore} from "../../Slices/cart"
 
 function Cart({setShowLogin, setAllAmount , allAmount }) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { cartItem } = useSelector((state) => {
-    return state.cartReducer;
-  });
 
+  const navigate = useNavigate()
   const [promoText, setPromoText] = useState("");
-  const {userName , user } = useSelector((state)=>{return state.authReducer})
-  // const {promoCode} = useSelector((state)=>{return state.cartReducer})
 
+  const dispatch = useDispatch();
+  const { cartItem, isInitialized } = useSelector((state) => state.cartReducer);
+  const { userName, user } = useSelector((state) => state.authReducer);
+
+  useEffect(() => {
+    if (user?.uid && !isInitialized) {
+      dispatch(fetchCartData(user.uid));
+    }
+  }, [dispatch, user, isInitialized]);
+
+  useEffect(() => {
+    if (user?.uid && isInitialized) {
+      dispatch(updateCartInFireStore({ userId: user.uid, cartItem }));
+    }
+  }, [dispatch, cartItem, user, isInitialized]);
 
   function calculateTotalAmount() {
     let total = 0;
@@ -39,33 +50,10 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
     setAllAmount(total);
   }
 
-  function checkPromoCode(e){
-    e.preventDefault();
-    let amount = 0;
-    if(userName === undefined){
-       toast.error("please login to access promo code!");
-       return;
-    }else if(user.uid && promoCode){
-         if(promoText === "WELCOME100"){
-            amount = allAmount - 10;
-            setAllAmount(amount);
-            dispatch(handlePromoCode(false))
-            setPromoText("");
-            toast.success("Congratulations you successfully applied PromoCode!!")
-         }else{
-            toast.error("Invalid Promo write properly!!")
-            return;
-         }
-    }else{
-       toast.error("Promo Code is already used!!")
-       return;
-    }
-}
 
   useEffect(() => {
     calculateTotalAmount();
   }, [cartItem]);
-
 
   const handlePromoCodeClick = async(e)=>{
     let amount = 0;
@@ -77,8 +65,10 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
       return;
      }
      try{
-        const userDocRef = doc(db,"Users",user.uid);
+        const userDocRef = doc(db,"Users",user?.uid);
+       
         const userDocSnap = await getDoc(userDocRef)
+        console.log(userDocSnap.data())
         if(userDocSnap.exists()){
           // if user data is exist in fireStore
           const userData = userDocSnap.data();
@@ -107,8 +97,11 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
          return;
      }
   }
-  
 
+
+
+
+  console.log(cartItem )
   return (
     <>
       {allAmount > 0 ? (
