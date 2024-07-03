@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from '@mui/icons-material/Google';
 
 import { handleSignUp , handleLogin, handleResetForm } from "../Slices/auth";
 import { useDispatch , useSelector } from "react-redux";
 import { signUpForm , loginForm } from "../Slices/auth"
-import {auth } from "../firebase"
+import {auth , db} from "../firebase"
+import { onAuthStateChanged } from 'firebase/auth';
+import {  doc  , setDoc} from "firebase/firestore"
 
 function Login({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
 
   const dispatch = useDispatch();
-  const {signUp , login , error ,userName } = useSelector((state)=>{return state.authReducer})
+  const {signUp , login , error ,userName , user} = useSelector((state)=>{return state.authReducer})
  
   
   function handleChange(e){
@@ -42,10 +44,48 @@ function Login({ setShowLogin }) {
 
   };
 
+
+  // useEffect(() => {
+  //   console.log("useEffect is running");
+
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     console.log("Auth state changed", currentUser);
+
+  //     if (currentUser) {
+  //       // User is signed in
+  //       const writeInFireStore = async () => {
+  //         try {
+  //           const userDocRef = doc(db, 'Users', currentUser.uid);
+  //           await setDoc(userDocRef, {
+  //             userId: currentUser.uid,
+  //             isPromo: true
+  //           });
+  //           console.log("Document written with ID: ", currentUser.uid);
+  //         } catch (error) {
+  //           console.error("Error adding document: ", error);
+  //         }
+  //       };
+        
+  //       writeInFireStore();
+  //     } else {
+  //       // User is signed out
+  //       console.log("User is signed out. No data saved.");
+  //     }
+  //   });
+  
+  //   // Cleanup subscription on unmount
+  //   return () => unsubscribe();
+  // }, []);
+
   // const handleGoogleClick =(e)=>{
   //    dispatch(SignInWithGoogle({auth}))
   //    setShowLogin(false)
   // }
+
+
+
+
+
 
   return (
     <>

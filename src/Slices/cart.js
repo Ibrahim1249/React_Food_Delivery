@@ -9,7 +9,6 @@ const cartSlice = createSlice({
     name:"cart",
     initialState:{
       cartItem:{},
-      promoCode:true
     },
     reducers:{
       handleAddCart:(state,action)=>{
@@ -29,9 +28,9 @@ const cartSlice = createSlice({
     handleRemoveItemFromCart:(state,action)=>{
        delete state.cartItem[action.payload]
     },
-     handlePromoCode:(state,action)=>{
-        state.promoCode = action.payload;
-     }
+   //   handlePromoCode:(state,action)=>{
+   //      state.promoCode = action.payload;
+   //   }
 
     }
 
@@ -39,4 +38,4 @@ const cartSlice = createSlice({
 
 export const cartReducer = cartSlice.reducer;
 
-export const {handleAddCart , handleRemoveCart ,handleRemoveItemFromCart , handlePromoCode} = cartSlice.actions;
+export const {handleAddCart , handleRemoveCart ,handleRemoveItemFromCart } = cartSlice.actions;

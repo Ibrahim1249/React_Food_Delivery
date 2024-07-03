@@ -2,7 +2,7 @@ import {
   handleAddCart,
   handleRemoveCart,
   handleRemoveItemFromCart,
-  handlePromoCode
+  
 } from "../../Slices/cart";
 import { useDispatch, useSelector } from "react-redux";
 import { food_list } from "../../assets/assets";
@@ -12,7 +12,9 @@ import cartImg from "../../assets/cartImg.avif"
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import toast from "react-hot-toast";
-
+import { getDoc, doc , updateDoc , setDoc} from 'firebase/firestore';
+import {auth , db } from "../../firebase"
+import { onAuthStateChanged } from 'firebase/auth';
 
 function Cart({setShowLogin, setAllAmount , allAmount }) {
   const dispatch = useDispatch();
@@ -22,8 +24,8 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
   });
 
   const [promoText, setPromoText] = useState("");
-  const {userName , user} = useSelector((state)=>{return state.authReducer})
-  const {promoCode} = useSelector((state)=>{return state.cartReducer})
+  const {userName , user } = useSelector((state)=>{return state.authReducer})
+  // const {promoCode} = useSelector((state)=>{return state.cartReducer})
 
 
   function calculateTotalAmount() {
@@ -63,10 +65,48 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
   useEffect(() => {
     calculateTotalAmount();
   }, [cartItem]);
-  
 
 
-  
+  const handlePromoCodeClick = async(e)=>{
+    let amount = 0;
+     e.preventDefault()
+     const user = auth.currentUser;
+     console.log(user)
+     if(!user){
+      toast.error("please login to access promo code!");
+      return;
+     }
+     try{
+        const userDocRef = doc(db,"Users",user.uid);
+        const userDocSnap = await getDoc(userDocRef)
+        if(userDocSnap.exists()){
+          // if user data is exist in fireStore
+          const userData = userDocSnap.data();
+            if(promoText === "WELCOME100"){ // if user written property WELCOME100
+              
+               if(userData.isPromo){ // check if user is already is used or not if it true it means user i valid for access
+                amount = allAmount - 10;
+                setAllAmount(amount);
+                  toast.success("Congratulations you successfully applied PromoCode!!")
+                await updateDoc(userDocRef, {
+                  isPromo: false
+                });
+                setPromoText("")
+               }else{ // means isPromo is false means used is already being used the promoCode
+                toast.error("Promo code already used");
+                return; 
+               }
+            }else{ // this means user not write properly the promoCode
+              toast.error("Invalid Promo write properly!!")
+              return;
+            }
+        }
+    
+     }catch(err){ // this is basically a fire store error
+         toast.error(err.message);
+         return;
+     }
+  }
   
 
   return (
@@ -151,10 +191,11 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
                   <input
                     type="text"
                     placeholder="promo code"
+                    required
                     value={promoText}
                     onChange={(e) => setPromoText(e.target.value)}
                   />
-                  <button onClick={(e)=>{checkPromoCode(e)}}>Submit</button>
+                  <button onClick={(e)=>{handlePromoCodeClick(e)}}>Submit</button>
                 </div>
               </div>
             </div>
