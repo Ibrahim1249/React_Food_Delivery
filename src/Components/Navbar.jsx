@@ -14,6 +14,7 @@ function Navbar({ setShowLogin , cartCount , setCartCount}) {
   const navigate = useNavigate();
   const { user, userName, error  } = useSelector((state) => state.authReducer);
   const {cartItem} = useSelector((state)=>{return state.cartReducer})
+  const {paymentDetails} = useSelector((state)=>{return state.checkOutReducer});
   const dispatch = useDispatch();
 
   function handleLogout() {
@@ -41,13 +42,14 @@ function Navbar({ setShowLogin , cartCount , setCartCount}) {
           <Link to="/">
             <li>Home</li>
           </Link>
-          <Link to="/about">
-            <li>About</li>
-          </Link>
+           <a href="#food-display">
+            <li>Menu</li>
+           </a>
           <Link to="/aiRecipe">
             <li>Ai Recipe</li>
           </Link>
           <Link to="/cart"><li>Cart <span className="cart-count">{cartCount > 0 ? cartCount : ""}</span></li></Link>
+          <Link to='/order'><li>{paymentDetails.length > 0 ? "Order History" : ""}</li></Link>
         </ul>
         <div className="navbar-right">
           <Search />

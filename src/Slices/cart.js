@@ -32,7 +32,7 @@ export const updateCartInFireStore = createAsyncThunk(
      } else if (!('isPromo' in userSnap.data())) {
        updateData.isPromo = true;
      }
-
+     console.log(updateData);
      await setDoc(userRef, updateData, { merge: true });
      return updateData;
    }

@@ -708,6 +708,40 @@ a{
   margin-top: 30px;
 }
 
+/* order history css */
+.order-container{
+   width: 60%;
+   margin: 5rem auto;
+   border: 2px solid #dadada;
+   padding: 1rem 2rem;
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+.order-container .order-title{
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  color: #3d405b;
+}
+.order-container hr{
+   margin-bottom: 1.5rem;
+}
+.order-item{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #caf0f8;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 5px;
+  color: #c1121f;
+
+}
+.order-item p{
+  font-family: Reddit Mono , sans-serif;
+  font-weight: 500;
+}
 
 /* navbar media query */
 
