@@ -7,14 +7,32 @@ import AiRecipe from "../Pages/AI/AiRecipe"
 import NavBar from "../Components/Navbar";
 import Footer from "../Components/Footer"
 import Login from "../Components/Login"
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Toaster } from "react-hot-toast";
 import CheckOut from "../Pages/CheckOut/CheckOut";
+import { useDispatch, useSelector } from "react-redux";
+import {fetchCartData , updateCartInFireStore} from "../Slices/cart"
 
 function Routing() {
+  const dispatch = useDispatch();
+  const { cartItem, isInitialized } = useSelector((state) => state.cartReducer);
+  const { user } = useSelector((state) => state.authReducer);
     const [showLogin,setShowLogin] = useState(false);
     const [allAmount, setAllAmount] = useState(0);
     const [cartCount , setCartCount] = useState(0);
+
+    useEffect(() => {
+      if (user?.uid && !isInitialized) {
+        dispatch(fetchCartData(user.uid));
+      }
+    }, [dispatch, user, isInitialized]);
+  
+    useEffect(() => {
+      if (user?.uid && isInitialized) {
+        dispatch(updateCartInFireStore({ userId: user.uid, cartItem }));
+      }
+    }, [dispatch, cartItem, user, isInitialized ]);
+  
   return (
     <>
       <BrowserRouter>

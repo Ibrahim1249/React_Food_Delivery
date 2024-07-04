@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from '@mui/icons-material/Google';
-
 import { handleSignUp , handleLogin, handleResetForm } from "../Slices/auth";
 import { useDispatch , useSelector } from "react-redux";
 import { signUpForm , loginForm } from "../Slices/auth"
-import {auth , db} from "../firebase"
-import { onAuthStateChanged } from 'firebase/auth';
-import {  doc  , setDoc} from "firebase/firestore"
+import {auth } from "../firebase"
+
 
 function Login({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");

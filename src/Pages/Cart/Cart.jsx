@@ -16,28 +16,12 @@ import toast from "react-hot-toast";
 import { getDoc, doc , updateDoc } from 'firebase/firestore';
 import {auth , db } from "../../firebase"
 
-import {fetchCartData , updateCartInFireStore} from "../../Slices/cart"
-
 function Cart({setShowLogin, setAllAmount , allAmount }) {
-
   const navigate = useNavigate()
-  const [promoText, setPromoText] = useState("");
-
   const dispatch = useDispatch();
-  const { cartItem, isInitialized } = useSelector((state) => state.cartReducer);
-  const { userName, user } = useSelector((state) => state.authReducer);
-
-  useEffect(() => {
-    if (user?.uid && !isInitialized) {
-      dispatch(fetchCartData(user.uid));
-    }
-  }, [dispatch, user, isInitialized]);
-
-  useEffect(() => {
-    if (user?.uid && isInitialized) {
-      dispatch(updateCartInFireStore({ userId: user.uid, cartItem }));
-    }
-  }, [dispatch, cartItem, user, isInitialized]);
+  const { cartItem } = useSelector((state) => state.cartReducer);
+  const { userName } = useSelector((state) => state.authReducer);
+  const [promoText, setPromoText] = useState("");
 
   function calculateTotalAmount() {
     let total = 0;
@@ -47,7 +31,7 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
         total += itemInfo.price * cartItem[item];
       }
     }
-    setAllAmount(total);
+    setAllAmount(total * 45);
   }
 
 
@@ -59,7 +43,6 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
     let amount = 0;
      e.preventDefault()
      const user = auth.currentUser;
-     console.log(user)
      if(!user){
       toast.error("please login to access promo code!");
       return;
@@ -75,7 +58,7 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
             if(promoText === "WELCOME100"){ // if user written property WELCOME100
               
                if(userData.isPromo){ // check if user is already is used or not if it true it means user i valid for access
-                amount = allAmount - 10;
+                amount = allAmount - 100;
                 setAllAmount(amount);
                   toast.success("Congratulations you successfully applied PromoCode!!")
                 await updateDoc(userDocRef, {
@@ -97,9 +80,6 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
          return;
      }
   }
-
-
-
 
   console.log(cartItem )
   return (
@@ -123,14 +103,14 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
                   <div key={index} className="cart-items-title cart-items-item">
                     <img src={item.image} />
                     <p>{item.name}</p>
-                    <p>${item.price}</p>
+                    <p>Rs {item.price * 45}</p>
                     <div className="expand-box">
                       <ExpandLessIcon onClick={()=>{dispatch(handleAddCart(item._id))}} style={{cursor:"pointer"}}/>
                       <p>{cartItem[item._id]}</p>
                       <ExpandMoreIcon onClick={()=>{dispatch(handleRemoveCart(item._id))}} style={{cursor:"pointer"}}/>
                     </div>
 
-                    <p>${item.price * cartItem[item._id]}</p>
+                    <p>Rs {item.price * cartItem[item._id] * 45}</p>
                     <p
                       onClick={() =>
                         dispatch(handleRemoveItemFromCart(item._id))
@@ -153,17 +133,17 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
               <div>
                 <div className="cart-total-details">
                   <p>Subtotal</p>
-                  <p>${allAmount.toFixed(2)}</p>
+                  <p>Rs {allAmount.toFixed(2) }</p>
                 </div>
                 <hr />
                 <div className="cart-total-details">
                   <p>Delivery Fee</p>
-                  <p>${2}</p>
+                  <p>Rs {50}</p>
                 </div>
                 <hr />
                 <div className="cart-total-details">
                   <p>Total</p>
-                  <b>${(allAmount + 2).toFixed(2)}</b>
+                  <b>Rs {(allAmount + 50).toFixed(2)}</b>
                 </div>
               </div>
               {userName === undefined ? 
@@ -177,7 +157,7 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
               <div>
                 <p>If you have a promo code, Enter it here</p>
                 <div className="promoCodeBox">
-                  <span className="promoCodeText1">Get OFF up to $10</span>
+                  <span className="promoCodeText1">Get OFF up to 100</span>
                   <span className="promoCodeText2">WELCOME100</span>
                 </div>
                 <div className="cart-promoCode-input">
