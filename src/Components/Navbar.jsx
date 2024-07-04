@@ -9,6 +9,7 @@ import Search from "./Search";
 import { useEffect } from "react";
 
 
+
 function Navbar({ setShowLogin , cartCount , setCartCount}) {
 
   const navigate = useNavigate();
@@ -17,8 +18,18 @@ function Navbar({ setShowLogin , cartCount , setCartCount}) {
   const {paymentDetails} = useSelector((state)=>{return state.checkOutReducer});
   const dispatch = useDispatch();
 
+
+  // this will clear currentUser from localStorage 
+  function clearLocalStorage(){
+      if(localStorage.getItem("currentUser")){
+        localStorage.removeItem("currentUser");
+      }
+  }
+
+  // this will work when user logout along with dispatch i also clear from local storage of current user 
   function handleLogout() {
     dispatch(logoutForm({ auth }));
+     clearLocalStorage()
     navigate("/");
   }
 

@@ -98,7 +98,16 @@ const authSlice = createSlice({
         }else{
           state.login = { email:"" , password:""}
         }
-      }
+      },
+      initializeFromStorage: (state) => {
+        const storedUser = localStorage.getItem("currentUser");
+        if (storedUser) {
+          const user = JSON.parse(storedUser);
+          state.user = user;
+          state.userName = user.displayName || user.name;
+        }
+        state.isInitialized = true;
+      },
  
     },
     extraReducers:(builder)=>{
@@ -148,4 +157,4 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 
-export const {handleSignUp , handleLogin , handleResetForm} = authSlice.actions;
+export const {handleSignUp , handleLogin , handleResetForm ,  initializeFromStorage } = authSlice.actions;
