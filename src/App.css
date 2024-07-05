@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Reddit+Mono:wght@200..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
 
 *{
     margin: 0;
@@ -31,8 +31,21 @@ a{
   .navbar .logo img {
     width: 100px;
   }
-  .navbar-menu {
+  .navbar .logo h4{
+     font-family: Dancing Script , sans-serif;
+     font-size: 36px;
+     color: #d1813a;
+     font-weight: 600;
+  }
+  .navbar-menu{
     display: flex;
+    list-style: none;
+    gap: 20px;
+    color: #49557e;
+    font-style: 18px;
+  }
+   .icons{
+    display: none;
     list-style: none;
     gap: 20px;
     color: #49557e;
@@ -43,7 +56,10 @@ a{
     align-items: center;
     gap: 15px;
   }
-  
+  .hamburger{
+    display: none;
+  }
+
   .navbar button {
     font-size: 16px;
     background: transparent;
@@ -445,6 +461,12 @@ a{
 .footer-content-logo img{
     width: 80px;
 }
+.footer-content-logo h2{
+  font-family: Dancing Script , sans-serif;
+  font-size: 36px;
+  color: #d1813a;
+  font-weight: 600;
+}
 .footer-content-center h2, .footer-content-right h2{
     color: white;
 }
@@ -745,7 +767,12 @@ a{
 /* Review page css  */
 .reviews-page{
   padding: 4rem 2rem;
+
 }
+/* .review-container{
+  width: 100%;
+  margin: auto;
+} */
 .review-form {
   max-width: 500px;
   margin: 0 auto;
@@ -849,17 +876,136 @@ a{
   margin-bottom: 0.75rem;
 }
 
-/* navbar media query */
+/* media query */
 
-/* footer media query */
+@media screen  and (max-width : 1000px){
+  .recipe-container{
+    width: 80%;
+  }
+  .review-output-container {
+    width: 85%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .navbar{
+    width: 95%;
+    justify-content: space-between;
+  }
+  .navbar-menu{
+    display: none;
+  }
+   .icons{
+    display: flex;
+    width: 30%;
+    gap: 30px;
+  }
+  .cart-count{
+    bottom: 18px;
+    right: -6px;
+  }
+  .place-order , .explore-menu , .food-display , .cart{
+    width: 90%;
+  }
+  .header{
+     width: 90%;
+     background-size: cover;
+     border-bottom-left-radius: 10px;
+     border-bottom-right-radius: 10px;
+  }
+  .search-container{
+    display: none;
+  }
+}
+
+@media screen  and (max-width : 800px){
+
+  .icons{
+    display: none;
+  }
+  .hamburger{
+    display: block;
+  }
+  .navbar .hamburger button{
+    padding: 3px 10px;
+    border-radius: 10px;
+    border: 1px solid #837f7f;
+  }
+  .place-order, .explore-menu, .food-display, .cart{
+    width: 95%;
+  }
+  .cart-bottom{
+    flex-wrap: wrap;
+  }
+  .cart-total{
+    width: 100%;
+  }
+  .reviews-page{
+    padding: 3rem 1rem;
+  }
+  .review-output-container , .recipe-container , .order-container{
+    width: 90%;
+  }
+  .recipe-container{
+    padding: 2rem 1rem;
+  }
+  .explore-menu-text{
+    max-width: 80%;
+  }
+  .recipe-container form input{
+    width: 55%;
+  }
+
+}
 
 @media screen and (max-width:750px){
-    .footer-content{
-        display: flex;
-        flex-direction: column;
-        gap: 35px;
-    }
-    .footer-copyright{
-        text-align: center;
-    }
+  .footer-content{
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+  }
+  .footer-copyright{
+      text-align: center;
+  }
 }
+
+@media screen  and (max-width : 600px){
+  .explore-menu-text{
+    max-width: 90%;
+  }
+
+  .review-output-container{
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .recipe-container form input{
+    width: 70%;
+  }
+  .recipe-container .output-detail{
+    padding: 0.75rem;
+  }
+  .navbar .logo h4{
+    font-size: 28px;
+  }
+  .place-order{
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width:450px) {
+  .place-order, .explore-menu, .food-display, .cart , .navbar , .header ,.review-output-container, .recipe-container, .order-container{
+    width: 99%;
+    padding: 0.5rem;
+  }
+  .navbar .logo img{
+    width: 50px;
+  }
+  .order-container{
+    padding: 1rem;
+  }
+  .navbar .logo{
+     gap: 5px;
+  }
+  .navbar .logo h4{
+    font-size: 24px;
+  }
+}
+
