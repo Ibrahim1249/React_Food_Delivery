@@ -34,8 +34,8 @@ const checkOutSlice = createSlice({
             country:"",
             number:""
            }
-        }
+        },
     }
 })
 export const checkOutReducer = checkOutSlice.reducer
-export const {handleChangeData , handlePaymentDetails , clearStateCheckOutDetails} = checkOutSlice.actions;
+export const {handleChangeData , handlePaymentDetails , clearStateCheckOutDetails } = checkOutSlice.actions;

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Home from "../Pages/Home/Home";
 import Cart from "../Pages/Cart/Cart";
 import AiRecipe from "../Pages/AI/AiRecipe"
@@ -13,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {fetchCartData , updateCartInFireStore } from "../Slices/cart"
 import {  initializeFromStorage  } from "../Slices/auth"
 import Order from "../Pages/Order/Order";
+import Reviews from "../Pages/Reviews/Reviews";
 
 function Routing() {
   const dispatch = useDispatch();
@@ -27,12 +27,12 @@ function Routing() {
       localStorage.setItem("currentUser", JSON.stringify(user));
     }
 
+
     // this will set the username and user state in auth slice when user is refresh so that user detail will get from local storage 
      const initializeAuth = () => (dispatch) => {
       dispatch(initializeFromStorage());
     };
- 
-    
+
     // this will ensure that current user refresh without logout i will remain with log in without re doing the login process
     useEffect(() => {
       dispatch(initializeAuth());
@@ -57,9 +57,6 @@ function Routing() {
     }, [dispatch, cartItem, user, isInitialized ]);
 
 
-
-
-  
   return (
     <>
       <BrowserRouter>
@@ -69,6 +66,7 @@ function Routing() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/cart" element={<Cart setShowLogin={setShowLogin} allAmount={allAmount} setAllAmount={setAllAmount} /> }></Route>
+          <Route path="/reviews" element={<Reviews setShowLogin={setShowLogin} allAmount={allAmount} setAllAmount={setAllAmount} /> }></Route>
           <Route path="/aiRecipe" element={<AiRecipe />}></Route>
           <Route path="/checkout" element={<CheckOut allAmount={allAmount}/>}></Route>
           <Route path="/order" element={<Order/>}></Route>

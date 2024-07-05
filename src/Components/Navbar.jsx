@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 
 
+
 function Navbar({ setShowLogin , cartCount , setCartCount}) {
 
   const navigate = useNavigate();
@@ -23,6 +24,9 @@ function Navbar({ setShowLogin , cartCount , setCartCount}) {
   function clearLocalStorage(){
       if(localStorage.getItem("currentUser")){
         localStorage.removeItem("currentUser");
+      }
+      if(localStorage.getItem("userReviews")){
+        localStorage.removeItem("userReviews")
       }
   }
 
@@ -38,6 +42,7 @@ function Navbar({ setShowLogin , cartCount , setCartCount}) {
     return;
   }
 
+  // this will show cart count to UI from Navbar 
   useEffect(()=>{
       setCartCount(Object.keys(cartItem).length)
   },[cartItem])
@@ -56,6 +61,7 @@ function Navbar({ setShowLogin , cartCount , setCartCount}) {
            <a href="#food-display">
             <li>Menu</li>
            </a>
+           <Link to='/reviews'><li>Reviews</li></Link>
           <Link to="/aiRecipe">
             <li>Ai Recipe</li>
           </Link>

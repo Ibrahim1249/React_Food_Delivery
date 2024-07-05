@@ -348,3 +348,78 @@ export const food_list = [
         category: "Noodles"
     }
 ]
+
+export const dummyReviews = [
+    {
+
+      userProfileImage: "https://randomuser.me/api/portraits/women/44.jpg",
+      userName: "Sarah Johnson",
+      date: "2024-07-01",
+      rating: 4.5,
+      reviewText: "The pasta was absolutely delicious! The sauce had the perfect balance of flavors. I'm definitely coming back for more."
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/men/32.jpg",
+      userName: "Michael Chen",
+      date: "2024-06-28",
+      rating: 3.5,
+      reviewText: "The burger was good, but I felt it was a bit overpriced for what you get. The fries were excellent though!"
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/women/68.jpg",
+      userName: "Emma Rodriguez",
+      date: "2024-06-25",
+      rating: 5,
+      reviewText: "Best sushi I've had in years! The fish was incredibly fresh and the presentation was beautiful. Highly recommend the chef's special roll."
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/men/75.jpg",
+      userName: "David Thompson",
+      date: "2024-06-22",
+      rating: 2,
+      reviewText: "I was disappointed with my steak. I ordered it medium-rare but it came well-done. The service was slow too."
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/women/90.jpg",
+      userName: "Olivia Parker",
+      date: "2024-06-19",
+      rating: 4,
+      reviewText: "The vegetarian options here are fantastic! I loved the quinoa salad and the roasted vegetable platter. Great flavors and very filling."
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/men/22.jpg",
+      userName: "James Wilson",
+      date: "2024-06-15",
+      rating: 3,
+      reviewText: "The atmosphere was nice, but the food was just average. Nothing particularly stood out. Might give it another try in the future."
+    },
+    {
+
+      userProfileImage: "https://randomuser.me/api/portraits/women/56.jpg",
+      userName: "Sophia Lee",
+      date: "2024-06-10",
+      rating: 4.5,
+      reviewText: "I'm in love with their desserts! The chocolate lava cake was to die for. Paired perfectly with their house-made vanilla ice cream."
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/men/41.jpg",
+      userName: "Ethan Brown",
+      date: "2024-06-05",
+      rating: 5,
+      reviewText: "Impressive wine selection! The sommelier's recommendations perfectly complemented our meal. A must-visit for wine enthusiasts."
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/women/33.jpg",
+      userName: "Ava Martinez",
+      date: "2024-05-30",
+      rating: 2.5,
+      reviewText: "The food was okay, but the portion sizes were disappointingly small for the price. The ambiance didn't make up for it either."
+    },
+    {
+      userProfileImage: "https://randomuser.me/api/portraits/men/62.jpg",
+      userName: "William Taylor",
+      date: "2024-05-25",
+      rating: 4,
+      reviewText: "Great service! The staff was attentive and knowledgeable about the menu. The seafood risotto was creamy and flavorful. Will return."
+    }
+  ];
