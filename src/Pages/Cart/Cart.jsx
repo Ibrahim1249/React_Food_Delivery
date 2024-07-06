@@ -81,7 +81,7 @@ function Cart({setShowLogin, setAllAmount , allAmount }) {
      }
   }
 
-  console.log(cartItem )
+  // console.log(cartItem )
   return (
     <>
       {allAmount > 0 ? (

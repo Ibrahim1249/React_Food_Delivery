@@ -24,7 +24,7 @@ export const updateCartInFireStore = createAsyncThunk(
      const userRef = doc(db, 'Users', userId);
      const userSnap = await getDoc(userRef);
      let updateData = { cart: cartItem };
-     console.log(updateData)
+    //  console.log(updateData)
      
      if (!userSnap.exists()) {
        updateData.userId = userId;
@@ -32,7 +32,7 @@ export const updateCartInFireStore = createAsyncThunk(
      } else if (!('isPromo' in userSnap.data())) {
        updateData.isPromo = true;
      }
-     console.log(updateData);
+    //  console.log(updateData);
      await setDoc(userRef, updateData, { merge: true });
      return updateData;
    }

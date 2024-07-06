@@ -51,7 +51,7 @@ function Routing() {
      // this for storing every  user cart detail changes iof current user 
     useEffect(() => {
       if (user?.uid && isInitialized) {
-        console.log("update")
+        // console.log("update")
         dispatch(updateCartInFireStore({ userId: user.uid, cartItem }));
       }
     }, [dispatch, cartItem, user, isInitialized ]);

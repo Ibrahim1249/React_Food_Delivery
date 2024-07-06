@@ -49,7 +49,7 @@ const response = await loadRazorPayScript("https://checkout.razorpay.com/v1/chec
    image: {logo},
    handler: (response) => {
       if(response){
-        console.log(response)
+        // console.log(response)
         toast.success("Payment is done successfully !!!")
         dispatch(clearCart({}))
         dispatch(handlePaymentDetails({paymentId : response.razorpay_payment_id , amount : allAmount + 2}))
