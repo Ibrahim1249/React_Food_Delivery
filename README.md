@@ -85,6 +85,9 @@ Follow these steps to get the project running on your local machine:
 ### Ai Recipe
 ![Ai Recipe](./screenshots/Ai.jpeg)
 
+### Reviews
+![Reviews](./screenshots/reviews.jpeg)
+
 ### Cart Page
 ![Cart Page](./screenshots/cart.jpeg)
 
