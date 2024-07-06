@@ -13,7 +13,7 @@ Welcome to the **Food Delivery** project! 🎉 This is a React-based application
  - **Proceed to checkout and make purchases**: Seamless checkout process.
  - **User authentication**: Firebase for user authentication.
  - **User data storage**: FireStore for storing user data.
- - **Payment integration**: Razorpay for secure and easy payments.
+ - **Payment integration**: RazorPay for secure and easy payments.
  - **Responsive and impressive UI design**: Mobile-friendly and visually appealing design.
  - **AI Recipe recommendations**: Get recipe suggestions based on your preferences.
 
@@ -24,7 +24,7 @@ Welcome to the **Food Delivery** project! 🎉 This is a React-based application
 - 🚦 **React Router**: For navigation.
 - 🎨 **Material UI/Component**: For styling.
 - 🌊 **Framer js** : For smooth animations
-- 💸 **Razorpay** : For payment integration  
+- 💸 **RazorPay** : For payment integration  
 - ✡️ **Redux** : For handling state in react 
 
 ## 🔧 Prerequisites
@@ -74,34 +74,48 @@ Follow these steps to get the project running on your local machine:
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page]()
+![Home Page](/screenshots/home.jpeg)
 
 ### Sign In Page
-![Sign In Page]()
+![Sign In Page](./screenshots/signup.jpeg)
 
 ### Login with Firebase
-![Login with Firebase]()
-
-### Menu page
-![Menu Page]()
-
-### Footer
-![Footer]()
+![Login with Firebase](./screenshots/login.jpeg)
 
 ### Ai Recipe
-![Ai Recipe]()
+![Ai Recipe](./screenshots/Ai.jpeg)
 
 ### Cart Page
-![Cart Page]()
+![Cart Page](./screenshots/cart.jpeg)
 
 ### CheckOut Page
-![CheckOut Page]()
+![CheckOut Page](./screenshots/checkout.jpeg)
 
 ### Order History Page
-![Order History]()
+![Order History](./screenshots/order%20history.jpeg)
 
 ### RazorPay 
-![RazorPay]()
+![RazorPay](./screenshots/payment.jpeg)
+
+### RazorPay Payment Done
+![RazorPay](./screenshots/payment%20done.jpeg)
+
+## 👨‍💻Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
+
+## 🏷️Acknowledgements
+
+- [React](https://reactjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [RazorPay](https://razorpay.com/)
 
 ---
 

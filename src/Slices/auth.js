@@ -2,8 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createUserWithEmailAndPassword , signInWithEmailAndPassword , updateProfile , signOut} from "firebase/auth";
-import { GoogleAuthProvider , signInWithPopup } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 
 function notification(message){
@@ -54,16 +52,6 @@ export const loginForm =createAsyncThunk("loginForm",async({auth,email,password}
       return err.message;
    }
 })
-
-// export const SignInWithGoogle =createAsyncThunk("SignInWithGoogle",async({auth})=>{
-//   try{
-//     const provider = new GoogleAuthProvider();
-//     const result = await signInWithPopup(auth, provider);
-//     return result.user;
-//   }catch(err){
-//      return err.message;
-//   }
-// })
 
 
 const authSlice = createSlice({

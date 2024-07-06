@@ -5,13 +5,14 @@ import { handleSignUp , handleLogin, handleResetForm } from "../Slices/auth";
 import { useDispatch , useSelector } from "react-redux";
 import { signUpForm , loginForm } from "../Slices/auth"
 import {auth } from "../firebase"
+import toast from "react-hot-toast";
 
 
 function Login({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
 
   const dispatch = useDispatch();
-  const {signUp , login , error ,userName , user} = useSelector((state)=>{return state.authReducer})
+  const {signUp , login } = useSelector((state)=>{return state.authReducer})
  
   
   function handleChange(e){
@@ -41,6 +42,11 @@ function Login({ setShowLogin }) {
     setShowLogin(false)
 
   };
+
+  function handleGoogleClick(e){
+      toast.error("Currently this service is not working please Register / Login with Manual Method By using create account button / login button !!");
+      return;
+  }
 
 
   return (
@@ -95,9 +101,6 @@ function Login({ setShowLogin }) {
               </span>
             </p>
           )}
-
-
-            
              <button onClick={(e)=>{handleGoogleClick(e)}}> <GoogleIcon style={{fontSize:"18px"}}/>Sign in with google</button>
         </form>
       </div>
